@@ -1,11 +1,9 @@
 import React from "react";
-import {DatePicker} from 'antd';
+import Router from "./Router";
 
-const App = () => {
+let App = () => {
     return (
-        <div>
-            <DatePicker/>
-        </div>
+        <Router/>
     );
 };
 

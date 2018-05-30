@@ -2,20 +2,27 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackMd5Hash = require("webpack-md5-hash");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
-
+    entry: [
+        'babel-polyfill',
+        'react-hot-loader/patch',
+        './src/index.js',
+    ],
     output: {
-        filename: '[name].[chunkhash].js'
+        filename: '[name].[hash].js',
+        chunkFilename: '[name].[hash].chunk.js',
+    },
+    stats: {
+        children: false
     },
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader"
-                }
+                use: ['babel-loader', 'eslint-loader'],
             },
             {
                 test: /\.html$/,
@@ -53,8 +60,9 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: "[name].[hash].css",
-            chunkFilename: "[id].css"
+            chunkFilename: "[name].[hash].chunk.css",
         }),
+        new webpack.HotModuleReplacementPlugin()
     ],
     optimization: {
         minimizer: [
@@ -69,6 +77,18 @@ module.exports = {
                 },
                 sourceMap: true
             })
-        ]
+        ],
+        splitChunks: {
+            chunks: 'all'
+        }
+    },
+    devServer: {
+        contentBase: './dist',
+        hot: true,
+        port: 3000,
+        historyApiFallback: true,
+        stats: {
+            children: false
+        },
     }
 };

@@ -126,5 +126,5 @@ fabric.properties
 # Sonarlint plugin
 .idea/sonarlint
 
-./dist
-./dist/*
+dist/
+package-lock.json

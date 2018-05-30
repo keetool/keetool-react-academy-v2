@@ -1,7 +1,8 @@
 {
-  "presets": ["env", "react"],
+  "presets": ["es2015", "react"],
   //import css for antd
   "plugins": [
-    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }] // `style: true` for less
+    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }], // `style: true` for less
+    "syntax-dynamic-import"
   ]
 }
