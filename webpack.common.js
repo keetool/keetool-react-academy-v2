@@ -35,6 +35,30 @@ module.exports = {
                 ]
             },
             {
+                test: /\.css$/,
+                oneOf: [
+                    {
+                        exclude: /node_modules/,
+                        use: [MiniCssExtractPlugin.loader, {
+                            loader: "css-loader",
+                            options: {
+                                sourceMap: true,
+                                modules: true,
+                                localIdentName: '[local]__[hash:base64:5]',
+                            },
+
+                        }]
+                    },
+                    {
+                        include: /node_modules/,
+                        use: [
+                            MiniCssExtractPlugin.loader,
+                            'css-loader',
+                        ]
+                    },
+                ],
+            },
+            {
                 test: /\.less$/,
                 oneOf: [
                     {
@@ -67,17 +91,7 @@ module.exports = {
                     },
                 ],
             },
-            {
-                test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, {
-                    loader: "css-loader",
-                    options: {
-                        sourceMap: true,
-                        modules: true,
-                        localIdentName: '[local]___[hash:base64:5]'
-                    }
-                }]
-            },
+
 
 
         ],

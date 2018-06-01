@@ -1,14 +1,39 @@
 import React from 'react';
-import SiderMenu from "./SiderMenu";
 import {Layout} from "antd";
 import GlobalHeader from "../components/GlobalHeader";
+import SiderMenu from "../components/SiderMenu";
 import GlobalFooter from "./GlobalFooter";
 import {enquireScreen, unenquireScreen} from "enquire-js";
+import {LOGO_SIDER} from "../constants";
+import {ContainerQuery} from "react-container-query";
+import classNames from "classnames";
 
 let isMobile;
 enquireScreen(b => {
     isMobile = b;
 });
+
+
+const query = {
+    'screen-xs': {
+        maxWidth: 575,
+    },
+    'screen-sm': {
+        minWidth: 576,
+        maxWidth: 767,
+    },
+    'screen-md': {
+        minWidth: 768,
+        maxWidth: 991,
+    },
+    'screen-lg': {
+        minWidth: 992,
+        maxWidth: 1199,
+    },
+    'screen-xl': {
+        minWidth: 1200,
+    },
+};
 
 class AppContainer extends React.Component {
     state = {
@@ -18,9 +43,17 @@ class AppContainer extends React.Component {
 
     componentDidMount() {
         this.enquireHandler = enquireScreen(mobile => {
-            this.setState({
-                isMobile: mobile,
-            });
+            if (mobile) {
+                this.setState({
+                    isMobile: mobile,
+                    collapsed: true,
+                });
+            } else {
+                this.setState({
+                    isMobile: false,
+                });
+            }
+
         });
     }
 
@@ -28,25 +61,43 @@ class AppContainer extends React.Component {
         unenquireScreen(this.enquireHandler);
     }
 
-    handleMenuCollapse = () => {
+    handleMenuCollapse = (collapsed) => {
         this.setState({
-            collapsed: !this.state.collapsed,
+            collapsed: collapsed ? collapsed : !this.state.collapsed,
         });
     };
 
     render() {
         const {collapsed, isMobile} = this.state;
-        return (
-            <Layout>
-                <SiderMenu collapsed={collapsed} isMobile={isMobile}/>
+        const layout = (
+            <Layout style={{ flexDirection: "row", overflowX: "hidden" }} hasSider>
+
+                <SiderMenu
+                    logo={LOGO_SIDER}
+                    collapsed={collapsed}
+                    isMobile={isMobile}
+                    onCollapse={this.handleMenuCollapse}
+                    fixed
+                />
+
                 <Layout>
-                    <GlobalHeader collapsed={collapsed} onCollapse={this.handleMenuCollapse}/>
-                    <Layout.Content style={{margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280}}>
+                    <GlobalHeader
+                        collapsed={collapsed}
+                        onCollapse={this.handleMenuCollapse}
+                        isMobile={isMobile}
+                        fixed
+                    />
+                    <Layout.Content style={{margin: '24px 24px 0', height: '2000px'}}>
                         Content
                     </Layout.Content>
                     <GlobalFooter/>
                 </Layout>
             </Layout>
+        );
+        return (
+            <ContainerQuery query={query}>
+                {params => <div className={classNames(params)}>{layout}</div>}
+            </ContainerQuery>
         );
     }
 }
