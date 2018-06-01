@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackMd5Hash = require("webpack-md5-hash");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
     entry: [
@@ -34,9 +35,51 @@ module.exports = {
                 ]
             },
             {
+                test: /\.less$/,
+                oneOf: [
+                    {
+                        exclude: /node_modules/ ,
+                        use:  [MiniCssExtractPlugin.loader, {
+                            loader: "css-loader",
+                            options: {
+                                sourceMap: true,
+                                modules: true,
+                                localIdentName: '[local]__[hash:base64:5]',
+                            },
+
+                        }, {
+                            loader: "less-loader", options: {
+                                javascriptEnabled: true,
+                            }
+                        }]
+                    },
+                    {
+                        include: /node_modules/ ,
+                        use: [
+                            MiniCssExtractPlugin.loader,
+                            'css-loader',
+                            {
+                                loader: "less-loader", options: {
+                                    javascriptEnabled: true,
+                                }
+                            }
+                        ]
+                    },
+                ],
+            },
+            {
                 test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader"]
-            }
+                use: [MiniCssExtractPlugin.loader, {
+                    loader: "css-loader",
+                    options: {
+                        sourceMap: true,
+                        modules: true,
+                        localIdentName: '[local]___[hash:base64:5]'
+                    }
+                }]
+            },
+
+
         ],
 
     },
@@ -59,8 +102,8 @@ module.exports = {
             },
         }),
         new MiniCssExtractPlugin({
-            filename: "[name].[hash].css",
-            chunkFilename: "[name].[hash].chunk.css",
+            filename: "[name].[contenthash].css",
+            chunkFilename: "[name].[contenthash].chunk.css",
         }),
         new webpack.HotModuleReplacementPlugin()
     ],
@@ -90,5 +133,8 @@ module.exports = {
         stats: {
             children: false
         },
+        host: '0.0.0.0',
+        public: 'localhost:3000',
+        disableHostCheck: true
     }
 };

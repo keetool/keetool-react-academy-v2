@@ -1,9 +1,11 @@
 import React from "react";
 import Router from "./Router";
+import history from './helpers/history';
+
 
 let App = () => {
     return (
-        <Router/>
+        <Router history={history}/>
     );
 };
 

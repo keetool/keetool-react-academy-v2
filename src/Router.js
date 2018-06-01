@@ -1,30 +1,46 @@
 import React from 'react';
-import {Route, BrowserRouter as Router, Link, Switch} from 'react-router-dom';
+import {Route, Router, Switch, Redirect} from 'react-router-dom';
 import asyncComponent from "./helpers/AsyncFunc";
+import {isLoggedIn} from "./helpers/auth";
+import AppContainer from "./containers/AppContainer";
+import PropTypes from 'prop-types';
 
-const Routes = () => {
+const RestrictedRoute = ({component: Component, ...rest}) => (
+    <Route
+        {...rest}
+        render={props => isLoggedIn()
+            ? <Component {...props} />
+            : <Redirect
+                to={'/signin'}
+            />
+        }
+    />
+);
+
+const Routes = ({history}) => {
     return (
-        <Router>
-            <div>
-                <ul>
-                    <li>
-                        <Link to={`/`}>
-                            Rendering with React
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={`/screen2`}>
-                            Componesnts
-                        </Link>
-                    </li>
-                </ul>
-                <Switch>
-                    <Route exact path={'/'} component={asyncComponent(()=>import('./Screen'))}/>
-                    <Route path={'/screen2'} component={asyncComponent(()=>import('./Screen2'))}/>
-                </Switch>
-            </div>
+        <Router history={history}>
+            <Switch>
+                <Route exact path={'/signin'}
+                       component={asyncComponent(() => import('./modules/signin/SignInContainer'))}/>
+                <Route exact path={'/screen2'}
+                       component={asyncComponent(() => import('./containers/AppContainer'))}/>
+                <RestrictedRoute
+                    path="/"
+                    component={AppContainer}
+                />
+            </Switch>
         </Router>
     );
+};
+
+RestrictedRoute.propTypes = {
+    component: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired,
+    path: PropTypes.string.isRequired,
+};
+
+Routes.propTypes = {
+    history: PropTypes.object,
 };
 
 export default Routes;
