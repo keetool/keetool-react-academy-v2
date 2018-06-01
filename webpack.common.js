@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackMd5Hash = require("webpack-md5-hash");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
-const path = require('path');
+
 
 module.exports = {
     entry: [
@@ -38,8 +38,8 @@ module.exports = {
                 test: /\.less$/,
                 oneOf: [
                     {
-                        exclude: /node_modules/ ,
-                        use:  [MiniCssExtractPlugin.loader, {
+                        exclude: /node_modules/,
+                        use: [MiniCssExtractPlugin.loader, {
                             loader: "css-loader",
                             options: {
                                 sourceMap: true,
@@ -54,7 +54,7 @@ module.exports = {
                         }]
                     },
                     {
-                        include: /node_modules/ ,
+                        include: /node_modules/,
                         use: [
                             MiniCssExtractPlugin.loader,
                             'css-loader',
@@ -124,17 +124,5 @@ module.exports = {
         splitChunks: {
             chunks: 'all'
         }
-    },
-    devServer: {
-        contentBase: './dist',
-        hot: true,
-        port: 3000,
-        historyApiFallback: true,
-        stats: {
-            children: false
-        },
-        host: '0.0.0.0',
-        public: 'localhost:3000',
-        disableHostCheck: true
     }
 };
