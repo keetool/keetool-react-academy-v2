@@ -1,12 +1,16 @@
 import React from 'react';
 import {Layout} from "antd";
-import GlobalHeader from "../components/GlobalHeader";
-import SiderMenu from "../components/SiderMenu";
-import GlobalFooter from "./GlobalFooter";
+import GlobalHeader from "../../components/GlobalHeader";
+import SiderMenu from "../../components/SiderMenu";
+import GlobalFooter from "../../components/GlobalFooter";
 import {enquireScreen, unenquireScreen} from "enquire-js";
-import {LOGO_SIDER} from "../constants";
+import {LOGO_SIDER, QUERY_SCREEN} from "../../constants/index";
 import {ContainerQuery} from "react-container-query";
-import classNames from "classnames";
+import classNamesBind from 'classnames/bind';
+import classNames from 'classnames';
+import styles from './styles.less';
+
+let cx = classNamesBind.bind(styles);
 
 let isMobile;
 enquireScreen(b => {
@@ -14,30 +18,11 @@ enquireScreen(b => {
 });
 
 
-const query = {
-    'screen-xs': {
-        maxWidth: 575,
-    },
-    'screen-sm': {
-        minWidth: 576,
-        maxWidth: 767,
-    },
-    'screen-md': {
-        minWidth: 768,
-        maxWidth: 991,
-    },
-    'screen-lg': {
-        minWidth: 992,
-        maxWidth: 1199,
-    },
-    'screen-xl': {
-        minWidth: 1200,
-    },
-};
+
 
 class AppContainer extends React.Component {
     state = {
-        collapsed: true,
+        collapsed: false,
         isMobile: isMobile
     };
 
@@ -69,33 +54,47 @@ class AppContainer extends React.Component {
 
     render() {
         const {collapsed, isMobile} = this.state;
+        const FIXED_HEADER = true;
+        const FIXED_SIDER = true;
         const layout = (
-            <Layout style={{ flexDirection: "row", overflowX: "hidden" }} hasSider>
-
+            <Layout hasSider>
                 <SiderMenu
                     logo={LOGO_SIDER}
                     collapsed={collapsed}
                     isMobile={isMobile}
                     onCollapse={this.handleMenuCollapse}
-                    fixed
+                    fixed={FIXED_SIDER}
                 />
-
                 <Layout>
                     <GlobalHeader
                         collapsed={collapsed}
                         onCollapse={this.handleMenuCollapse}
                         isMobile={isMobile}
-                        fixed
+                        fixed={FIXED_HEADER}
+                        fixedSider={FIXED_SIDER}
                     />
-                    <Layout.Content style={{margin: '24px 24px 0', height: '2000px'}}>
-                        Content
-                    </Layout.Content>
-                    <GlobalFooter/>
+                    <Layout>
+                        <div className={cx({
+                            'layout-content': true,
+                            'fixed-sider': FIXED_SIDER,
+                            'fixed-header-top': FIXED_HEADER,
+                            'collapse-sider-left': FIXED_SIDER && collapsed,
+                            'collapse-sider-left-mobile': isMobile,
+                        })}>
+                            <Layout.Content>
+                                <div className={styles.content}>
+                                    Content
+                                </div>
+
+                            </Layout.Content>
+                            <GlobalFooter/>
+                        </div>
+                    </Layout>
                 </Layout>
             </Layout>
         );
         return (
-            <ContainerQuery query={query}>
+            <ContainerQuery query={QUERY_SCREEN}>
                 {params => <div className={classNames(params)}>{layout}</div>}
             </ContainerQuery>
         );

@@ -1,18 +1,44 @@
 @import '~antd/lib/style/themes/default.less';
 
 .header {
-  height: 64px;
+  height: @layout-header-height;
   padding: 0 12px 0 0;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   position: relative;
+  -webkit-transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  -ms-transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  -o-transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  &.fixed-sider {
+    padding-left: 256px;
+  }
+  &.fixed-header-top {
+    margin-top: @layout-header-height;
+  }
+
+  &.collapse-sider-left {
+    padding-left: @menu-collapsed-width;
+  }
+
+  &.collapse-sider-left-mobile {
+    padding-left: 0;
+  }
 }
 
-.header-fixed-top {
-  position: fixed;
-  z-index: 1;
-  width: 100%;
-  padding: 0
+.layout-header {
+  padding: 0;
+  &.header-fixed-top {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+
+  }
+}
+
+.content-header {
+
 }
 
 :global {

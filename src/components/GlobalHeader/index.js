@@ -4,9 +4,10 @@ import {Divider, Icon, Layout} from "antd";
 import styles from './styles.less';
 import {Link} from "react-router-dom";
 import {LOGO_HEADER} from "../../constants";
-import classNames from 'classnames/bind';
+import classNamesBind from 'classnames/bind';
+// import classNames from 'classnames';
 
-let cx = classNames.bind(styles);
+let cx = classNamesBind.bind(styles);
 
 class GlobalHeader extends React.Component {
     constructor(props, context) {
@@ -15,12 +16,18 @@ class GlobalHeader extends React.Component {
     }
 
     render() {
-        const {isMobile, collapsed, onCollapse, fixed} = this.props;
+        const {isMobile, collapsed, onCollapse, fixedSider, fixed} = this.props;
         return (
             <Layout.Header className={cx({
-                'header-fixed-top': fixed
+                'layout-header': true,
+                'header-fixed-top': fixed,
             })}>
-                <div className={styles.header}>
+                <div className={cx({
+                    'header': true,
+                    'fixed-sider': fixedSider,
+                    'collapse-sider-left': fixedSider && collapsed,
+                    'collapse-sider-left-mobile': isMobile,
+                })}>
                     {isMobile && [
                         <Link to="/" className={styles.logo} key="logo">
                             <img src={LOGO_HEADER} alt="logo" width="32"/>

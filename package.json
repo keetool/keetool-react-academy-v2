@@ -21,6 +21,7 @@
     "prop-types": "^15.6.1",
     "rc-drawer-menu": "^1.1.0",
     "react": "^16.4.0",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.4.0",
     "react-placeholder": "^3.0.1",
     "react-router": "^4.2.0",

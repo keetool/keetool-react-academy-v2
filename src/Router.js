@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Router, Switch, Redirect} from 'react-router-dom';
 import asyncComponent from "./helpers/AsyncFunc";
 import {isLoggedIn} from "./helpers/auth";
-import AppContainer from "./containers/AppContainer";
+import AppContainer from "./containers/AppContainer/AppContainer";
 import PropTypes from 'prop-types';
 
 const RestrictedRoute = ({component: Component, ...rest}) => (
@@ -24,7 +24,7 @@ const Routes = ({history}) => {
                 <Route exact path={'/signin'}
                        component={asyncComponent(() => import('./modules/signin/SignInContainer'))}/>
                 <Route exact path={'/screen2'}
-                       component={asyncComponent(() => import('./containers/AppContainer'))}/>
+                       component={asyncComponent(() => import('./containers/AppContainer/AppContainer'))}/>
                 <RestrictedRoute
                     path="/"
                     component={AppContainer}

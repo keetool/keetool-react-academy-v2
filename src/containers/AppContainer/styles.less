@@ -1,0 +1,29 @@
+@import '~antd/lib/style/themes/default.less';
+
+.layout-content {
+  -webkit-transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  -ms-transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  -o-transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  &.fixed-sider {
+    padding-left: 256px;
+  }
+  &.fixed-header-top {
+    margin-top: @layout-header-height;
+  }
+
+  &.collapse-sider-left {
+    padding-left: @menu-collapsed-width;
+  }
+
+  &.collapse-sider-left-mobile {
+    padding-left: 0;
+  }
+
+  .content {
+    margin: 24px 24px 0;
+    height: 2000px;
+  }
+
+}
