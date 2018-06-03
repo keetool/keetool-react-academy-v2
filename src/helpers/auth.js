@@ -27,3 +27,8 @@ export function saveToken(token) {
 export function clearToken() {
     return removeStorage('token');
 }
+
+export function signout() {
+    clearToken();
+    history.push(PATH_REDIRECT_NO_AUTH);
+}
