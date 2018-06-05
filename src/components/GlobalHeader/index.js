@@ -48,7 +48,6 @@ class GlobalHeader extends React.Component {
 
   render() {
     const { isMobile, collapsed, onCollapse, fixedSider, fixed } = this.props;
-    console.log(i18n.language);
     return (
       <Layout.Header
         className={cx({

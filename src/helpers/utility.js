@@ -111,10 +111,13 @@ export function URL_add_parameter(param, value) {
   });
 
   url = window.location.pathname + "?" + list.join("&");
-  console.log(url);
   return url;
 }
 
 export function reload_url(url) {
   window.location.href = url;
+}
+
+export function isEmpty(data) {
+  return data == undefined || data == null || data == "";
 }
