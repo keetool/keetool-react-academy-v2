@@ -8,12 +8,9 @@ const SiderMenuWrapper = props =>
         <DrawerMenu
             getContainer={null}
             level={null}
-            handleStyle={{display: props.collapsed ? 'none' : 'flex'}}
+            handleChild={false}
             open={!props.collapsed}
             onMaskClick={() => {
-                props.onCollapse(true);
-            }}
-            onHandleClick={()=>{
                 props.onCollapse(true);
             }}
         >

@@ -6,12 +6,13 @@ import { Link } from "react-router-dom";
 // import classNames from 'classnames/bind';
 import classNamesBind from "classnames/bind";
 import { Scrollbars } from "react-custom-scrollbars";
+import { translate } from "react-i18next";
 
 let cx = classNamesBind.bind(styles);
 
 class SiderMenu extends React.Component {
   render() {
-    const { logo, collapsed, isMobile, fixed, onCollapse } = this.props;
+    const { logo, collapsed, isMobile, fixed, onCollapse, t } = this.props;
     return (
       <Layout.Sider
         trigger={null}
@@ -48,7 +49,7 @@ class SiderMenu extends React.Component {
             <Menu.Item key="1">
               <Link to="/">
                 <Icon type="dashboard" />
-                <span>Trang chủ</span>
+                <span>{t("dashboard.sidebar.tab.homepage")}</span>
               </Link>
             </Menu.Item>
             <Menu.SubMenu
@@ -56,7 +57,7 @@ class SiderMenu extends React.Component {
               title={
                 <span>
                   <Icon type="profile" />
-                  <span>Giảng dạy</span>
+                  <span>{t("dashboard.sidebar.tab.teaching")}</span>
                 </span>
               }
             >
@@ -86,4 +87,4 @@ SiderMenu.propTypes = {
   onCollapse: PropTypes.func
 };
 
-export default SiderMenu;
+export default translate(props => props.namespaces)(SiderMenu);

@@ -1,13 +1,19 @@
 import React from "react";
-import Router from "./Router";
-import history from './helpers/history';
+import asyncComponent from "./helpers/AsyncFunc";
+import { translate } from "react-i18next";
+import GlobalLoading from "./components/GlobalLoading";
 
-
-let App = () => {
+const App = ({ tReady }) => {
+  if (tReady) {
+    const Component = asyncComponent(() => import("./Router"));
     return (
-        <Router history={history}/>
+      <div>
+        <Component />
+      </div>
     );
+  } else {
+    return <GlobalLoading />;
+  }
 };
 
-export default App;
-
+export default translate(props => props.namespaces)(App);

@@ -1,21 +1,20 @@
-import React from 'react';
+import React from "react";
+import { translate } from "react-i18next";
+// import { DatePicker,  } from "antd";
 
 class DashboardContainer extends React.Component {
-    constructor(props, context) {
-        super(props, context);
+  constructor(props, context) {
+    super(props, context);
+  }
 
-    }
+  componentDidMount() {}
 
-    componentDidMount() {
-    }
-
-    render() {
-        return (
-            <h1>Dashboard</h1>
-        );
-    }
+  render() {
+    const { t } = this.props;
+    return <div>{t("Hello")}</div>;
+  }
 }
 
 DashboardContainer.propTypes = {};
 
-export default DashboardContainer;
+export default translate((props) => props.namespaces)(DashboardContainer);

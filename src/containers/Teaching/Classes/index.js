@@ -1,21 +1,18 @@
-import React from 'react';
-
+import React from "react";
+import { translate } from "react-i18next";
 class ClassesContainer extends React.Component {
-    constructor(props, context) {
-        super(props, context);
+  constructor(props, context) {
+    super(props, context);
+  }
 
-    }
+  componentDidMount() {}
 
-    componentDidMount() {
-    }
-
-    render() {
-        return (
-            <h1>Quản lý lớp</h1>
-        );
-    }
+  render() {
+    const { t } = this.props;
+    return <div>{t("Hello")}</div>;
+  }
 }
 
 ClassesContainer.propTypes = {};
 
-export default ClassesContainer;
+export default translate(props => props.namespaces)(ClassesContainer);

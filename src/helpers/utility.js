@@ -87,3 +87,34 @@ export function setStorage(key, value, expires) {
 export function getPathComponent(path) {
   return asyncComponent(() => import(path));
 }
+
+export function URL_add_parameter(param, value) {
+  let hash = {};
+  let url = window.location.href;
+
+  let parameters = url.split(/\?|&/);
+
+  for (let i = 0; i < parameters.length; i++) {
+    if (!parameters[i]) continue;
+
+    let ary = parameters[i].split("=");
+    hash[ary[0]] = ary[1];
+  }
+
+  hash[param] = value;
+
+  let list = [];
+  Object.keys(hash).forEach(function(key) {
+    if (hash[key]) {
+      list.push(key + "=" + hash[key]);
+    }
+  });
+
+  url = window.location.pathname + "?" + list.join("&");
+  console.log(url);
+  return url;
+}
+
+export function reload_url(url) {
+  window.location.href = url;
+}
