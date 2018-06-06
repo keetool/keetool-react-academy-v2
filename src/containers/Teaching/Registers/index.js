@@ -1,4 +1,5 @@
 import React from "react";
+import { DatePicker } from "antd";
 
 class RegistersContainer extends React.Component {
   constructor(props, context) {
@@ -8,7 +9,11 @@ class RegistersContainer extends React.Component {
   componentDidMount() {}
 
   render() {
-    return <h1>Quản lý học viên</h1>;
+    return (
+      <div>
+        <DatePicker /> <h1>Quản lý học viên</h1>
+      </div>
+    );
   }
 }
 

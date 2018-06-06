@@ -5,6 +5,9 @@ import { isLoggedIn } from "./helpers/auth";
 import AppContainer from "./containers/App/index";
 import PropTypes from "prop-types";
 import history from "./helpers/history";
+import { LocaleProvider } from "antd";
+import getLocale from "./languages/i18nAntd";
+import i18n from "./languages/i18n";
 
 const RestrictedRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -17,16 +20,20 @@ const RestrictedRoute = ({ component: Component, ...rest }) => (
 
 const Routes = () => {
   return (
-    <Router history={history}>
-      <Switch>
-        <Route
-          exact
-          path={"/signin"}
-          component={asyncComponent(() => import("./containers/Signin/index"))}
-        />
-        <RestrictedRoute path="/" component={AppContainer} />
-      </Switch>
-    </Router>
+    <LocaleProvider locale={getLocale(i18n.language)}>
+      <Router history={history}>
+        <Switch>
+          <Route
+            exact
+            path={"/signin"}
+            component={asyncComponent(() =>
+              import("./containers/Signin/index")
+            )}
+          />
+          <RestrictedRoute path="/" component={AppContainer} />
+        </Switch>
+      </Router>
+    </LocaleProvider>
   );
 };
 

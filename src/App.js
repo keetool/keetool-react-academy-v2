@@ -5,12 +5,10 @@ import GlobalLoading from "./components/GlobalLoading";
 
 const App = ({ tReady }) => {
   if (tReady) {
-    const Component = asyncComponent(() => import("./Router"));
-    return (
-      <div>
-        <Component />
-      </div>
+    const Component = asyncComponent(() =>
+      import(/* webpackPreload: true */ "./Router")
     );
+    return <Component />;
   } else {
     return <GlobalLoading />;
   }
