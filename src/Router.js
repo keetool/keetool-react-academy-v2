@@ -20,7 +20,8 @@ const RestrictedRoute = ({ component: Component, ...rest }) => (
 
 const Routes = () => {
   return (
-    <LocaleProvider locale={getLocale(i18n.language)}>
+    
+    <LocaleProvider locale={getLocale(i18n.language)}>{/* config language for ant design*/}
       <Router history={history}>
         <Switch>
           <Route
