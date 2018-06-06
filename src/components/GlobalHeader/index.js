@@ -105,7 +105,7 @@ class GlobalHeader extends React.Component {
                 <Avatar
                   size="small"
                   className={styles.avatar}
-                  src={"http://d1j8r0kxyu9tj8.cloudfront.net/webs/logo1.jpg"}
+                  src={"https://d1j8r0kxyu9tj8.cloudfront.net/webs/logo1.jpg"}
                 />
                 <span className={styles.name}>Admin</span>
               </span>

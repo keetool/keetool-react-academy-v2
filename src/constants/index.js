@@ -6,7 +6,7 @@ export const LOGO_HEADER =
   "https://d1j8r0kxyu9tj8.cloudfront.net/files/1527837100Awhblu215Uvr3ri.png";
 
 export const LOGO_HEADER_SIGN_IN =
-  "httpss://d255zuevr6tr8p.cloudfront.net/landingpage/assets/img/colorlogo.png";
+  "https://d255zuevr6tr8p.cloudfront.net/landingpage/assets/img/colorlogo.png";
 
 export const QUERY_SCREEN = {
   "screen-xs": {
