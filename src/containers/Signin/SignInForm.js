@@ -1,25 +1,47 @@
 import React from "react";
-import { Form } from "antd";
-import { saveToken } from "../../helpers/auth";
-import history from "../../helpers/history";
+import { Form, Alert } from "antd";
 import styles from "./styles.less";
 import { translate } from "react-i18next";
 import CustomForm from "../../components/common/Form";
 import FormInput from "../../components/common/FormInput";
 import FormButton from "../../components/common/FormButton";
 import Icon from "../../components/common/Icon";
+import { signin } from "../../actions/signinActions";
 
 class SignInForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.setData = this.setState.bind(this);
+  }
+
+  state = {
+    isLoading: false,
+    error: false
+  };
+
   handleSubmit = values => {
-    console.log(values);
-    saveToken("dsadsa");
-    history.push("/");
+    signin(values, this.setData);
+  };
+
+  renderMessage = content => {
+    return (
+      <Alert
+        style={{ marginBottom: 24 }}
+        message={content}
+        type="error"
+        showIcon
+      />
+    );
   };
 
   render() {
     const { t } = this.props;
     return (
       <div className={styles.login}>
+        {!this.state.isLoading &&
+          this.state.error &&
+          this.renderMessage("Có lỗi xảy ra")}
+
         <CustomForm onSubmit={this.handleSubmit}>
           <FormInput
             name="username"
@@ -42,7 +64,7 @@ class SignInForm extends React.Component {
                 message: t("manage.login.form.please_input_your_password")
               }
             ]}
-            prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+            prefix={<Icon type="lock" />}
             suffix={<Icon type="close-circle" />}
             suffixClear
             type="password"
@@ -53,6 +75,7 @@ class SignInForm extends React.Component {
             htmlType="submit"
             size="large"
             className={styles.submit}
+            loading={this.state.isLoading}
           >
             {t("manage.login.form.login")}
           </FormButton>

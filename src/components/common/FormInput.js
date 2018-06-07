@@ -41,6 +41,7 @@ export default class FormInput extends Component {
           this.clear();
         }
       };
+
       // add props to suffix
       return addPropsComponent(beforeProps, props, this.props.suffix, "suffix");
     } else {

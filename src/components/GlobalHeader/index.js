@@ -15,7 +15,7 @@ import styles from "./styles.less";
 import { Link } from "react-router-dom";
 import { LOGO_HEADER, LANGUAGES } from "../../constants";
 import classNamesBind from "classnames/bind";
-import { signout } from "../../helpers/auth";
+import { signout, getAccount } from "../../helpers/auth";
 import { URL_add_parameter, reload_url } from "../../helpers/utility";
 import i18n from "../../languages/i18n";
 // import classNames from 'classnames';
@@ -40,6 +40,7 @@ const menu = (
 class GlobalHeader extends React.Component {
   constructor(props, context) {
     super(props, context);
+    this.account = getAccount();
   }
 
   handleChangeLanguage(value) {
@@ -100,16 +101,18 @@ class GlobalHeader extends React.Component {
                 </Badge>
               </a>
             </Tooltip>
-            <Dropdown overlay={menu}>
-              <span className={`${styles.action} ${styles.account}`}>
-                <Avatar
-                  size="small"
-                  className={styles.avatar}
-                  src={"https://d1j8r0kxyu9tj8.cloudfront.net/webs/logo1.jpg"}
-                />
-                <span className={styles.name}>Admin</span>
-              </span>
-            </Dropdown>
+            {this.account && (
+              <Dropdown overlay={menu}>
+                <span className={`${styles.action} ${styles.account}`}>
+                  <Avatar
+                    size="small"
+                    className={styles.avatar}
+                    src={this.account.avatar_url}
+                  />
+                  <span className={styles.name}>{this.account.name}</span>
+                </span>
+              </Dropdown>
+            )}
           </div>
         </div>
       </Layout.Header>

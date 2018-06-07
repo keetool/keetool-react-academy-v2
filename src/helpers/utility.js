@@ -30,7 +30,7 @@ export function getStorage(key) {
   // set expiration for storage
   let expiresIn = localStorage.getItem(key + "_expiresIn");
   if (expiresIn === undefined || expiresIn === null) {
-    expiresIn = 0;
+    return localStorage.getItem(key);
   }
 
   if (expiresIn < now) {
@@ -63,7 +63,8 @@ export function getStorage(key) {
  */
 export function setStorage(key, value, expires) {
   if (expires === undefined || expires === null) {
-    expires = 24 * 60 * 60; // default: seconds for 1 day
+    localStorage.setItem(key, value); 
+    return;
   } else {
     expires = Math.abs(expires); //make sure it's positive
   }
