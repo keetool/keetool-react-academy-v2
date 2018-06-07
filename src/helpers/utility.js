@@ -1,4 +1,5 @@
 import asyncComponent from "../helpers/AsyncFunc";
+import React from "react";
 
 export function removeStorage(key) {
   try {
@@ -120,4 +121,42 @@ export function reload_url(url) {
 
 export function isEmpty(data) {
   return data == undefined || data == null || data == "";
+}
+
+/**
+ * Add props to component
+ * @param {*} beforeProps
+ * @param {*} props
+ * @param {*} component
+ * @param {*} keyComponent
+ */
+export function addPropsComponent(
+  beforeProps,
+  props = {},
+  component = null,
+  keyComponent = null
+) {
+  if (component && keyComponent) {
+    component = React.cloneElement(component, props);
+    return {
+      ...beforeProps,
+      [keyComponent]: component
+    };
+  }
+  return beforeProps;
+}
+
+/**
+ * remove property in props
+ * @param {*} props
+ * @param {*} key
+ */
+export function removeProp(props, key = null) {
+  if (key) {
+    return {
+      ...props,
+      [key]: undefined
+    };
+  }
+  return props;
 }

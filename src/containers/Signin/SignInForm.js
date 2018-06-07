@@ -1,66 +1,62 @@
 import React from "react";
-import { Form, Icon, Input, Button } from "antd";
+import { Form } from "antd";
 import { saveToken } from "../../helpers/auth";
 import history from "../../helpers/history";
 import styles from "./styles.less";
 import { translate } from "react-i18next";
+import CustomForm from "../../components/common/Form";
+import FormInput from "../../components/common/FormInput";
+import FormButton from "../../components/common/FormButton";
+import Icon from "../../components/common/Icon";
+
 class SignInForm extends React.Component {
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFields(err => {
-      if (!err) {
-        saveToken("dsadsadsa");
-        history.push("/");
-      }
-    });
+  handleSubmit = values => {
+    console.log(values);
+    saveToken("dsadsa");
+    history.push("/");
   };
 
   render() {
-    const { getFieldDecorator } = this.props.form;
     const { t } = this.props;
     return (
       <div className={styles.login}>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Item>
-            {getFieldDecorator("userName", {
-              rules: [
-                { required: true, message: "Please input your username!" }
-              ]
-            })(
-              <Input
-                prefix={
-                  <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
-                placeholder={t("login.form.password")}
-              />
-            )}
-          </Form.Item>
-          <Form.Item>
-            {getFieldDecorator("password", {
-              rules: [
-                { required: true, message: "Please input your Password!" }
-              ]
-            })(
-              <Input
-                prefix={
-                  <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
-                type="password"
-                placeholder={t("login.form.username")}
-              />
-            )}
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              size="large"
-              className={styles.submit}
-            >
-              {t("login.form.login")}
-            </Button>
-          </Form.Item>
-        </Form>
+        <CustomForm onSubmit={this.handleSubmit}>
+          <FormInput
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: t("manage.login.form.please_input_your_username")
+              }
+            ]}
+            prefix={<Icon type="user" />}
+            suffix={<Icon type="close-circle" />}
+            suffixClear
+            placeholder={t("manage.login.form.username")}
+          />
+          <FormInput
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: t("manage.login.form.please_input_your_password")
+              }
+            ]}
+            prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+            suffix={<Icon type="close-circle" />}
+            suffixClear
+            type="password"
+            placeholder={t("manage.login.form.password")}
+          />
+          <FormButton
+            type="primary"
+            htmlType="submit"
+            size="large"
+            className={styles.submit}
+          >
+            {t("manage.login.form.login")}
+          </FormButton>
+        </CustomForm>
       </div>
     );
   }

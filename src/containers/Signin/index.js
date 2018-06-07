@@ -25,7 +25,7 @@ class SignInContainer extends React.Component {
                 />
               </Link>
             </div>
-            <div className={styles.desc}>{t("login.form.description")}</div>
+            <div className={styles.desc}>{t("manage.login.form.description")}</div>
           </div>
           <div className={styles.main}>
             <SignInForm />

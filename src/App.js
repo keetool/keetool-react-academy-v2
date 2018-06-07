@@ -4,10 +4,10 @@ import { translate } from "react-i18next";
 import GlobalLoading from "./components/GlobalLoading";
 
 const App = ({ tReady }) => {
+  const Component = asyncComponent(() =>
+    import(/* webpackPrefetch: true */ "./Router")
+  );
   if (tReady) {
-    const Component = asyncComponent(() =>
-      import(/* webpackPreload: true */ "./Router")
-    );
     return <Component />;
   } else {
     return <GlobalLoading />;

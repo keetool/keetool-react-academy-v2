@@ -49,7 +49,7 @@ class SiderMenu extends React.Component {
             <Menu.Item key="1">
               <Link to="/">
                 <Icon type="dashboard" />
-                <span>{t("dashboard.sidebar.tab.homepage")}</span>
+                <span>{t("manage.sidebar.tab.homepage")}</span>
               </Link>
             </Menu.Item>
             <Menu.SubMenu
@@ -57,18 +57,18 @@ class SiderMenu extends React.Component {
               title={
                 <span>
                   <Icon type="profile" />
-                  <span>{t("dashboard.sidebar.tab.teaching")}</span>
+                  <span>{t("manage.sidebar.tab.teaching")}</span>
                 </span>
               }
             >
               <Menu.Item key="2">
                 <Link to="/teaching/classes">
-                  <span>Lớp</span>
+                  <span>{t("manage.sidebar.tab.class")}</span>
                 </Link>
               </Menu.Item>
               <Menu.Item key="3">
                 <Link to="/teaching/registers">
-                  <span>Đăng kí</span>
+                  <span>{t("manage.sidebar.tab.student")}</span>
                 </Link>
               </Menu.Item>
             </Menu.SubMenu>

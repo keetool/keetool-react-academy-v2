@@ -69,7 +69,7 @@ const i18n =
     lowerCaseLng: true,
     fallbackLng: false, // false = disable load dev language
     load: "languageOnly", // only load  'languageOnly' --> 'en'
-    debug: true,
+    // debug: true,
     detection: {
       lookupQuerystring: "lang",
       lookupLocalStorage: 'keetool_i18n_lang'
