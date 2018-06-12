@@ -11,10 +11,10 @@ class DashboardContainer extends React.Component {
 
   render() {
     const { t } = this.props;
-    return <div>{t("Hello")}</div>;
+    return <div>{t("manage.login.form.description")}</div>;
   }
 }
 
 DashboardContainer.propTypes = {};
 
-export default translate((props) => props.namespaces)(DashboardContainer);
+export default translate(props => props.namespaces)(DashboardContainer);

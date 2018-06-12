@@ -1,16 +1,16 @@
 import { signinApi } from "../apis/signinApis";
 import history from "../helpers/history";
-import { saveToken } from "../helpers/auth";
-import { setStorage } from "../helpers/utility";
+import { saveToken, saveRefreshToken } from "../helpers/auth";
+import { httpSuccess } from "../helpers/httpStatus";
 
 export function signin(account, setState) {
   setState({ isLoading: true, error: false });
   signinApi(account)
     .then(res => {
       setState({ isLoading: false });
-      if (res.data.token) {
-        saveToken(res.data.token);
-        setStorage("account", JSON.stringify(res.data.user));
+      if (httpSuccess(res.status)) {
+        saveToken(res.data.access_token, res.data.expires_in);
+        saveRefreshToken(res.data.refresh_token, res.data.expires_in);
         history.push("/");
       }
     })

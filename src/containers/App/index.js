@@ -10,6 +10,9 @@ import classNamesBind from "classnames/bind";
 import classNames from "classnames";
 import styles from "./styles.less";
 import AppRoutes from "../../routes/AppRoutes";
+import { setHeaderToken } from "../../helpers/axios";
+import { getAccount } from "../../actions/accoutActions";
+import { AccountProvider } from "../../components/context/AccountContext";
 
 let cx = classNamesBind.bind(styles);
 
@@ -19,12 +22,23 @@ enquireScreen(b => {
 });
 
 class AppContainer extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.setData = this.setState.bind(this);
+  }
+
   state = {
     collapsed: false,
-    isMobile: isMobile
+    isMobile: isMobile,
+    account: {
+      isLoading: false
+    }
   };
 
   componentDidMount() {
+    setHeaderToken();
+    getAccount(this.setData);
+
     this.enquireHandler = enquireScreen(mobile => {
       if (mobile) {
         this.setState({
@@ -92,9 +106,11 @@ class AppContainer extends React.Component {
       </Layout>
     );
     return (
-      <ContainerQuery query={QUERY_SCREEN}>
-        {params => <div className={classNames(params)}>{layout}</div>}
-      </ContainerQuery>
+      <AccountProvider value={this.state.account}>
+        <ContainerQuery query={QUERY_SCREEN}>
+          {params => <div className={classNames(params)}>{layout}</div>}
+        </ContainerQuery>
+      </AccountProvider>
     );
   }
 }

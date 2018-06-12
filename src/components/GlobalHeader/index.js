@@ -9,15 +9,17 @@ import {
   Layout,
   Menu,
   Tooltip,
-  Select
+  Select,
+  Spin
 } from "antd";
 import styles from "./styles.less";
 import { Link } from "react-router-dom";
 import { LOGO_HEADER, LANGUAGES } from "../../constants";
 import classNamesBind from "classnames/bind";
-import { signout, getAccount } from "../../helpers/auth";
+import { signout } from "../../helpers/auth";
 import { URL_add_parameter, reload_url } from "../../helpers/utility";
 import i18n from "../../languages/i18n";
+import { withAccount } from "../context/AccountContext";
 // import classNames from 'classnames';
 
 let cx = classNamesBind.bind(styles);
@@ -40,7 +42,6 @@ const menu = (
 class GlobalHeader extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.account = getAccount();
   }
 
   handleChangeLanguage(value) {
@@ -48,7 +49,14 @@ class GlobalHeader extends React.Component {
   }
 
   render() {
-    const { isMobile, collapsed, onCollapse, fixedSider, fixed } = this.props;
+    const {
+      isMobile,
+      collapsed,
+      onCollapse,
+      fixedSider,
+      fixed,
+      account
+    } = this.props;
     return (
       <Layout.Header
         className={cx({
@@ -101,15 +109,17 @@ class GlobalHeader extends React.Component {
                 </Badge>
               </a>
             </Tooltip>
-            {this.account && (
+            {account.isLoading ? (
+              <Spin size="small" style={{ marginLeft: 8 }} />
+            ) : (
               <Dropdown overlay={menu}>
                 <span className={`${styles.action} ${styles.account}`}>
                   <Avatar
                     size="small"
                     className={styles.avatar}
-                    src={this.account.avatar_url}
+                    src={account.avatar_url}
                   />
-                  <span className={styles.name}>{this.account.name}</span>
+                  <span className={styles.name}>{account.name}</span>
                 </span>
               </Dropdown>
             )}
@@ -128,4 +138,4 @@ GlobalHeader.propTypes = {
   fixed: PropTypes.bool
 };
 
-export default GlobalHeader;
+export default withAccount(GlobalHeader);

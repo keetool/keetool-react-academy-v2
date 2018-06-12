@@ -43,3 +43,5 @@ export const LANGUAGES = [
     label: "Française"
   }
 ];
+
+export const TOKEN_TYPE = "Bearer";
