@@ -1,10 +1,11 @@
-import {use} from "i18next";
+import { use } from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { reactI18nextModule } from "react-i18next";
 import XHR from "i18next-xhr-backend";
 import Backend from "i18next-chained-backend";
 import LocalStorageBackend from "i18next-localstorage-backend";
 import { i18nApi } from "../apis/i18nApis";
+import { capitalizeFirstLetter } from "../helpers/utility";
 
 let keyLanguage;
 let keyVersionLanguage;
@@ -40,8 +41,7 @@ function loadLocales(lang, options, callback) {
     });
 }
 
-const i18n = 
-  use(Backend)
+const i18n = use(Backend)
   .use(LanguageDetector)
   .use(reactI18nextModule) // if not using I18nextProvider
   .init({
@@ -72,7 +72,7 @@ const i18n =
     // debug: true,
     detection: {
       lookupQuerystring: "lang",
-      lookupLocalStorage: 'keetool_i18n_lang'
+      lookupLocalStorage: "keetool_i18n_lang"
     },
     keySeparator: false,
 
@@ -82,6 +82,14 @@ const i18n =
       bindI18n: "languageChanged loaded",
       bindStore: "added removed",
       nsMode: "default"
+    },
+    interpolation: {
+      format: function(value, format) {
+        console.log(value);
+        if (format === "uppercase") return value.toUpperCase();
+        if (format === "lowercase") return value.toLowerCase();
+        return capitalizeFirstLetter(value);
+      }
     }
   });
 

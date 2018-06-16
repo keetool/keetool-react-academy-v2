@@ -1,7 +1,7 @@
 let URL;
 
 if (process.env.NODE_ENV === "production") {
-  URL = location.protocol + "//" + location.hostname;
+  URL = location.protocol + "//" + location.hostname + "/";
 } else {
   URL = "https://test.keetool1.xyz/";
 }

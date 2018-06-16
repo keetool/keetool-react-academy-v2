@@ -2,8 +2,9 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import dashboardRoutes from "./dashboardRoutes";
 import teachingRoutes from "./teachingRoutes";
+import logRoutes from "./logRoutes";
 
-const routes = [...dashboardRoutes, ...teachingRoutes];
+const routes = [...dashboardRoutes, ...teachingRoutes, ...logRoutes];
 
 const renderRoutes = (routes, parentPath = "") => {
   return (

@@ -72,6 +72,12 @@ class SiderMenu extends React.Component {
                 </Link>
               </Menu.Item>
             </Menu.SubMenu>
+            <Menu.Item key="4">
+              <Link to="/log">
+                <Icon type="hourglass" />
+                <span>{t("manage.sidebar.tab.log")}</span>
+              </Link>
+            </Menu.Item>
           </Menu>
         </Scrollbars>
       </Layout.Sider>

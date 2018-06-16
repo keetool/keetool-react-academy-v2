@@ -1,10 +1,10 @@
 import { signinApi } from "../apis/signinApis";
 import history from "../helpers/history";
 import { saveToken, saveRefreshToken } from "../helpers/auth";
-import { httpSuccess } from "../helpers/httpStatus";
+import { httpSuccess, messageHttpRequestSignIn } from "../helpers/httpRequest";
 
 export function signin(account, setState) {
-  setState({ isLoading: true, error: false });
+  setState({ isLoading: true, messageError: null });
   signinApi(account)
     .then(res => {
       setState({ isLoading: false });
@@ -14,7 +14,8 @@ export function signin(account, setState) {
         history.push("/");
       }
     })
-    .catch(() => {
-      setState({ isLoading: false, error: true });
+    .catch(error => {
+      const messageError = messageHttpRequestSignIn(error);
+      setState({ isLoading: false, messageError });
     });
 }

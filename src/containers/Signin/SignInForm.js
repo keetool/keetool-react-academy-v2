@@ -16,14 +16,14 @@ class SignInForm extends React.Component {
 
   state = {
     isLoading: false,
-    error: false
+    messageError: false
   };
 
   handleSubmit = values => {
     signin(values, this.setData);
   };
 
-  renderMessage = content => {
+  renderMessageError = content => {
     return (
       <Alert
         style={{ marginBottom: 24 }}
@@ -39,8 +39,8 @@ class SignInForm extends React.Component {
     return (
       <div className={styles.login}>
         {!this.state.isLoading &&
-          this.state.error &&
-          this.renderMessage("Có lỗi xảy ra")}
+          this.state.messageError &&
+          this.renderMessageError(this.state.messageError)}
 
         <CustomForm onSubmit={this.handleSubmit}>
           <FormInput

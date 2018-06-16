@@ -63,7 +63,7 @@ export function getStorage(key) {
  */
 export function setStorage(key, value, expires) {
   if (expires === undefined || expires === null) {
-    localStorage.setItem(key, value); 
+    localStorage.setItem(key, value);
     return;
   } else {
     expires = Math.abs(expires); //make sure it's positive
@@ -160,4 +160,31 @@ export function removeProp(props, key = null) {
     };
   }
   return props;
+}
+
+export function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function formatPagination(pagination) {
+  return {
+    pageSize: parseInt(pagination.per_page),
+    current: pagination.current_page,
+    total: pagination.total
+  };
+}
+
+/**
+ * convert data sort of ant table with server sort
+ * @param {*} sorter sorter of ant table
+ * @param {*} key key of object need sort in server
+ */
+export function formatSortTable(sorter, key) {
+  if (key == sorter.field) {
+    if (sorter.order == "ascend") return "asc";
+    else {
+      return "desc";
+    }
+  }
+  return "";
 }
