@@ -88,10 +88,11 @@ class LogsContainer extends Component {
         <Table
           dataSource={dataSource}
           columns={columns(t)}
-          rowKey={record => record.created_at}
+          rowKey={(record, index) => index}
           loading={isLoading}
           pagination={pagination}
           onChange={this.handleTableChange}
+          scroll={{ y: "60vh" }}
         />
       </div>
     );

@@ -1,4 +1,4 @@
-@import '~antd/lib/style/themes/default.less';
+@import "~antd/lib/style/themes/default.less";
 
 .layout-content {
   -webkit-transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -23,7 +23,7 @@
 
   .content {
     margin: 24px 24px 0;
-    height: 2000px;
+    // height: 2000px;
+    min-height: calc(100vh - 3 * @layout-header-height) !important;
   }
-
 }

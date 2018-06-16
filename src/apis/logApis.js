@@ -6,8 +6,8 @@ export function getLogsApi(params = {}) {
   return axios.get(url, {
     params: {
       page: params.page ? params.page : 1,
-      limit: 5,
-      order: params.sortCreatedAt ? params.sortCreatedAt : ""
+      limit: 10
+      // order: params.sortCreatedAt ? params.sortCreatedAt : ""
     }
   });
 }
