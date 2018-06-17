@@ -14,12 +14,14 @@ const columns = t => {
       title: capitalizeFirstLetter(t("manage.log.table.header_column_action")),
       dataIndex: "action",
       key: "action",
-      render: text => `${capitalizeFirstLetter(t(text))}`
+      render: text => `${capitalizeFirstLetter(t(text))}`,
+      width: "30%"
     },
     {
       title: capitalizeFirstLetter(t("manage.log.table.header_column_content")),
       dataIndex: "message",
       key: "message",
+      width: "30%",
       render: (text, row, index) => {
         return (
           <div

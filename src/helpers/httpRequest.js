@@ -6,10 +6,8 @@ export function httpSuccess(status) {
 
 export function messageHttpRequest(error) {
   if (error.response) {
-    console.log(error.response.status);
     switch (error.response.status) {
       case 401:
-        console.log(401);
         signout();
         return;
     }
